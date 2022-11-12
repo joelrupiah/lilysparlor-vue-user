@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import AdminMaster from './components/AdminMaster.vue'
+import UserMaster from './components/UserMaster.vue'
 import router from './router'
 
 import Vuesax from 'vuesax3'
@@ -10,9 +10,9 @@ import 'element-plus/dist/index.css'
 import 'vuesax3/dist/vuesax.css'
 import 'material-icons/iconfont/material-icons.css'
 
-const app = createApp(AdminMaster)
+const app = createApp(UserMaster)
 
-app.component('admin-master', AdminMaster)
+app.component('user-master', UserMaster)
 
 app.use(Vuesax)
 app.use(ElementPlus)
@@ -20,4 +20,4 @@ app.use(Notifications)
 
 app.use(router)
 
-app.mount('#admin')
+app.mount('#user')
