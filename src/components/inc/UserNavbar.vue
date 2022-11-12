@@ -30,10 +30,10 @@
                 <a href="/shop">Shop</a>
               </li>
               <li>
-                <a href="product.html">About</a>
+                <a href="/about">About</a>
               </li>
               <li>
-                <a href="product.html">Contact Us</a>
+                <a href="/contact-us">Contact Us</a>
               </li>
             </ul><!-- End .menu -->
           </nav><!-- End .main-nav -->
