@@ -203,6 +203,14 @@
 
 <script>
 export default {
-  name: 'Checkout'
+  name: 'Checkout',
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to, from) {
+        document.title = to.meta.title || 'Lilysparlor - Checkout'
+      }
+    },
+  }
 }
 </script>

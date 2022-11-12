@@ -658,6 +658,14 @@
 
 <script>
 export default {
-  name: 'Shop'
+  name: 'Shop',
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to, from) {
+        document.title = to.meta.title || 'Lilysparlor - Shop'
+      }
+    },
+  }
 }
 </script>

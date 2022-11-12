@@ -127,6 +127,14 @@
 
 <script>
 export default {
-  name: 'Cart'
+  name: 'Cart',
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to, from) {
+        document.title = to.meta.title || 'Lilysparlor - Cart'
+      }
+    },
+  }
 }
 </script>

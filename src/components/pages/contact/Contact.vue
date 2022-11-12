@@ -167,6 +167,14 @@
 
 <script>
 export default {
-  name: 'Contact'
+  name: 'Contact',
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to, from) {
+        document.title = to.meta.title || 'Lilysparlor - Contact'
+      }
+    },
+  }
 }
 </script>

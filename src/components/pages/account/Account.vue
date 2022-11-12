@@ -144,6 +144,14 @@
 
 <script>
 export default {
-  name: 'Account'
+  name: 'Account',
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to, from) {
+        document.title = to.meta.title || 'Lilysparlor - Account'
+      }
+    },
+  }
 }
 </script>

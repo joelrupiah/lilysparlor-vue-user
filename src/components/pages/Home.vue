@@ -670,6 +670,14 @@
 
 <script>
 export default {
-  name: 'Home'
+  name: 'Home',
+  watch: {
+    $route: {
+      immediate: true,
+      handler(to, from) {
+        document.title = to.meta.title || 'Lilysparlor - Home'
+      }
+    },
+  }
 }
 </script>
