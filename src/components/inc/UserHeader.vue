@@ -130,6 +130,9 @@
 
 <script>
 export default {
-  name: 'UserHeader'
+  name: 'UserHeader',
+  computed(){
+    
+  }
 }
 </script>
