@@ -23,11 +23,13 @@
                                 </a>
 
                                 <div class="product-action-vertical">
-                                    <a href="#" class="btn-product-icon btn-wishlist" title="Add to wishlist"></a>
+                                    <a @click.prevent="addToWishlist(product)" class="btn-product-icon btn-wishlist"
+                                        title="Add to wishlist"></a>
                                 </div><!-- End .product-action -->
 
                                 <div class="product-action">
-                                    <a href="#" class="btn-product btn-cart" title="Add to cart"><span>add to
+                                    <a @click.prevent="addToCart(product)" class="btn-product btn-cart"
+                                        title="Add to cart"><span>add to
                                             cart</span></a>
                                     <a href="/product-detail" class="btn-product btn-quickview"
                                         title="Quick view"><span>quick view</span></a>
@@ -69,6 +71,21 @@ export default {
 
         getAllProducts() {
             this.getAllProductsList()
+        },
+
+        addToCart(product) {
+            // alert(product.name + 'Added to cart')
+            this.$store.dispatch('cart/addToCart', {
+                product,
+                quantity: 1
+            })
+        },
+
+        addToWishlist(product) {
+            // alert(product.name + 'Added to wishlist')
+            this.$store.dispatch('wishlist', {
+                product
+            })
         }
     },
     computed: {
