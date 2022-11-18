@@ -10,7 +10,7 @@ export default {
     async [GET_CATEGORIES_ACTION](context) {
         let response = ''
         try {
-            response = await Api().get('/get-categories')
+            response = await Axios.get('http://127.0.0.1:8000/api/get-categories')
             context.commit(SET_CATEGORIES_MUTATION, response.data.categories)
             return response
         } catch (error) {

@@ -1,18 +1,21 @@
 import actions from './actions'
 import getters from './getters'
-import mutations from './mutations'
+import mutations  from './mutations'
 
-const category = {
-  namespaced: true,
-  state() {
-    return {
-      categories: [],
-      errors: null
-    }
-  },
-  mutations,
-  getters,
-  actions
+const auth = {
+    namespaced: true,
+    state() {
+        return {
+            // token: JSON.parse(localStorage.getItem('userData')).token,
+            // id: JSON.parse(localStorage.getItem('userData')).id,
+            // email: JSON.parse(localStorage.getItem('userData')).email,
+            // name: JSON.parse(localStorage.getItem('userData')).name,
+            // avatar: JSON.parse(localStorage.getItem('userData')).avatar
+        }
+    },
+    mutations,
+    getters,
+    actions
 }
 
-export default category
+export default auth
