@@ -15,7 +15,7 @@
 
     </main><!-- End .main -->
 
-<user-footer />
+<user-footer v-if="!['RegisterLogin'].includes($route.name)" />
 
   </div><!-- End .page-wrapper -->
   <button id="scroll-top" title="Back to Top"><i class="icon-arrow-up"></i></button>
@@ -27,7 +27,7 @@
 
   <!-- Sign in / Register Modal -->
 
-<auth-modal />
+<!-- <auth-modal /> -->
 
 <!-- <subscribe-modal /> -->
 

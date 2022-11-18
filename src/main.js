@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import UserMaster from './components/UserMaster.vue'
 import router from './router'
+import store from './store'
 
 import Vuesax from 'vuesax3'
 import ElementPlus from 'element-plus'
@@ -19,5 +20,6 @@ app.use(ElementPlus)
 app.use(Notifications)
 
 app.use(router)
+app.use(store)
 
 app.mount('#user')
