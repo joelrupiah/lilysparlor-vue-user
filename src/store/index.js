@@ -5,6 +5,7 @@ import {
 import auth from './modules/auth/index'
 import category from './modules/category/index'
 import product from './modules/product/index'
+import service from './modules/service/index'
 import cart from './modules/cart/index'
 // import createPersistedState from "vuex-persistedstate"
 // import VuexPersistence from 'vuex-persist'
@@ -16,6 +17,7 @@ const store = createStore({
     auth,
     category,
     product,
+    service,
     cart
   },
   // plugins: [new VuexPersistence().plugin],

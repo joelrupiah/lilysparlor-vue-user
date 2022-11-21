@@ -19,3 +19,8 @@ export const SET_CATEGORIES_MUTATION = '[mutations] set categories mutation'
 export const GET_PRODUCTS_ACTION = '[actions] get products action'
 export const GET_PRODUCTS_GETTER = '[getters] get products getter'
 export const SET_PRODUCTS_MUTATION = '[mutations] set products mutation'
+
+// Service Constants
+export const GET_SERVICES_ACTION = '[actions] get services action'
+export const GET_SERVICES_GETTER = '[getters] get services getter'
+export const SET_SERVICES_MUTATION = '[mutations] get services mutation'
