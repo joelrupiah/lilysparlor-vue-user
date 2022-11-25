@@ -7,6 +7,7 @@ import category from './modules/category/index'
 import product from './modules/product/index'
 import service from './modules/service/index'
 import cart from './modules/cart/index'
+import order from './modules/order/index'
 // import createPersistedState from "vuex-persistedstate"
 // import VuexPersistence from 'vuex-persist'
 
@@ -18,7 +19,8 @@ const store = createStore({
     category,
     product,
     service,
-    cart
+    cart,
+    order
   },
   // plugins: [new VuexPersistence().plugin],
   // strict: debug,
