@@ -70,7 +70,7 @@
 
           <div class="dropdown-menu dropdown-menu-right">
             <div class="dropdown-cart-products">
-              <div class="product">
+              <div class="product" v-for="(item, i) in cart" :key="i">
                 <div class="product-cart-details">
                   <h4 class="product-title">
                     <a href="product.html">{{item.product.name}}</a>

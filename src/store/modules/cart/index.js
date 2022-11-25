@@ -6,7 +6,8 @@ const cart = {
   namespaced: true,
   state() {
     return {
-      cart: []
+      cart: [],
+      cartCount: 0
     }
   },
   mutations,
