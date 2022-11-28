@@ -23,7 +23,7 @@
                 <thead>
                   <tr>
                     <th>SL</th>
-                    <th>Product</th>
+                    <th>Service</th>
                     <th>Price</th>
                     <th>Quantity</th>
                     <th>Total</th>
@@ -38,33 +38,26 @@
                       <div class="product">
                         <figure class="product-media">
                           <a href="#">
-                            <img src="assets/images/products/table/product-2.jpg" alt="Product image">
+                            <img src="assets/images/products/table/product-2.jpg" alt="Service image">
                           </a>
                         </figure>
 
                         <h3 class="product-title">
-                          <a href="#">{{ item.product.title }}</a>
+                          <a href="#">{{ item.service.name }}</a>
                         </h3><!-- End .product-title -->
                       </div><!-- End .product -->
                     </td>
-                    <td class="price-col">${{item.product.price}}</td>
+                    <td class="price-col">${{item.service.price}}</td>
                     <td class="quantity-col">
                       <div class="cart-product-quantity">
-                        <input type="number" class="form-control" value="1" min="1" max="10" step="1" data-decimals="0"
+                        <input type="number" class="form-control" :value="item.quantity" min="1" max="10" step="1" data-decimals="0"
                           required>
                       </div><!-- End .cart-product-quantity -->
                     </td>
-                    <td class="total-col">${{ item.product.price }}</td>
-                    <td class="quantity-col">
-                      <div class="cart-product-quantity">
-                        <input type="number" class="form-control" :value="item.quantity" min="1" max="10" step="1"
-                          data-decimals="0" required>
-                      </div><!-- End .cart-product-quantity -->
-                    </td>
-                    <td class="total-col">${{ item.product.price * item.quantity }}</td>
+                    <td class="total-col">${{ item.service.price * item.quantity }}</td>
                     <td class="remove-col">
                       <button class="btn-remove">
-                        <i class="icon-close" @click.prevent="removeProductInCart(item.product)"></i>
+                        <i class="icon-close" @click.prevent="removeServiceInCart(item.service)"></i>
                       </button>
                     </td>
                   </tr>
@@ -147,8 +140,8 @@ export default {
     emptyCart() {
       return (this.cart.length < 1)
     },
-    removeProductInCart(product) {
-      this.$store.dispatch('cart/removeProductInCart', product)
+    removeServiceInCart(service) {
+      this.$store.dispatch('cart/removeServiceInCart', service)
     },
     clearCartItems() {
       this.$store.dispatch('cart/deleteAllCartItems')

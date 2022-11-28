@@ -33,33 +33,12 @@
                   </div><!-- End .col-sm-6 -->
                 </div><!-- End .row -->
 
-                <label>Company Name (Optional)</label>
-                <input type="text" class="form-control" v-model="form.company">
 
-                <label>Country *</label>
-                <input type="text" class="form-control" v-model="form.country" required>
-
-                <label>Expected Date *</label>
-                <el-date-picker v-model="form.expected_date" type="date" placeholder="Pick a day">
-
-                </el-date-picker>
 
                 <div class="row">
                   <div class="col-sm-6">
-                    <label>Town / City *</label>
-                    <input type="text" class="form-control" v-model="form.city" required>
-                  </div><!-- End .col-sm-6 -->
-
-                  <div class="col-sm-6">
-                    <label>State / County *</label>
-                    <input type="text" class="form-control" v-model="form.county" required>
-                  </div><!-- End .col-sm-6 -->
-                </div><!-- End .row -->
-
-                <div class="row">
-                  <div class="col-sm-6">
-                    <label>Postcode / ZIP *</label>
-                    <input type="text" class="form-control" v-model="form.postCode" required>
+                    <label>Email address *</label>
+                    <input type="email" class="form-control" v-model="form.email" required>
                   </div><!-- End .col-sm-6 -->
 
                   <div class="col-sm-6">
@@ -68,29 +47,42 @@
                   </div><!-- End .col-sm-6 -->
                 </div><!-- End .row -->
 
-                <label>Email address *</label>
-                <input type="email" class="form-control" v-model="form.email" required>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <label>Expected Date *</label>
+                    <el-date-picker v-model="form.expected_date" type="date" placeholder="Pick a day">
 
-                <label>Order notes (optional)</label>
+                    </el-date-picker>
+                  </div><!-- End .col-sm-6 -->
+                  <div class="col-sm-6">
+                    <label>Expected Time *</label>
+                    <el-time-picker v-model="form.expected_time" arrow-control placeholder="Expected time" />
+                  </div><!-- End .col-sm-6 -->
+
+                </div><!-- End .row -->
+
+
+
+                <label>Description (optional)</label>
                 <textarea class="form-control" cols="30" rows="4" v-model="form.description"
                   placeholder="Notes about your order, e.g. special notes for delivery"></textarea>
               </div><!-- End .col-lg-9 -->
               <aside class="col-lg-3">
                 <div class="summary">
-                  <h3 class="summary-title">Your Order</h3><!-- End .summary-title -->
+                  <h3 class="summary-title">Service (s) Ordered</h3><!-- End .summary-title -->
 
                   <table class="table table-summary">
                     <thead>
                       <tr>
-                        <th>Product</th>
+                        <th>Service</th>
                         <th>Total</th>
                       </tr>
                     </thead>
 
                     <tbody>
                       <tr v-for="(item, index) in cart" :key="index">
-                        <td><a href="#">{{ item.product.name }}</a></td>
-                        <td>${{ item.product.price }}</td>
+                        <td><a href="#">{{ item.service.name }}</a></td>
+                        <td>${{ item.service.price }}</td>
                       </tr>
                       <tr v-if="emptyCart()">
                         <td colspan="6">
@@ -124,7 +116,7 @@
                             <input type="checkbox" class="custom-control-input" v-model="payment.cash_on_delivery"
                               id="cashpayment">
                             <label class="custom-control-label" for="cashpayment">
-                              Cash On Delivery
+                              Pay On Site
                             </label>
                           </div>
                           <!-- <a role="button" data-toggle="collapse" href="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
@@ -138,7 +130,7 @@
                       <div class="card-header" id="heading-2">
                         <h2 class="card-title">
                           <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" v-model="payment.mpesa"
+                            <input type="checkbox" disabled class="custom-control-input" v-model="payment.mpesa"
                               id="mpesapayment">
                             <label class="custom-control-label" for="mpesapayment">
                               Mpesa
@@ -152,7 +144,7 @@
                       <div class="card-header" id="heading-3">
                         <h2 class="card-title">
                           <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" v-model="payment.paypal"
+                            <input type="checkbox" disabled class="custom-control-input" v-model="payment.paypal"
                               id="paypalpayment">
                             <label class="custom-control-label" for="paypalpayment">
                               Paypal
@@ -166,7 +158,8 @@
                       <div class="card-header" id="heading-4">
                         <h2 class="card-title">
                           <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" v-model="payment.card" id="cardpayment">
+                            <input type="checkbox" disabled class="custom-control-input" v-model="payment.card"
+                              id="cardpayment">
                             <label class="custom-control-label" for="cardpayment">
                               Card
                             </label>
@@ -208,40 +201,38 @@ export default {
         firstName: '',
         lastName: '',
         email: '',
-        country: '',
-        company: '',
-        county: '',
-        postCode: '',
         phone: '',
         description: '',
-        expected_date: ''
+        expected_date: '',
+        expected_time: '',
       }
     }
   },
   methods: {
     completeOrder() {
+      // console.log(this.form)
       Api().post('checkout', {
         form: this.form,
         payment: this.payment,
         total: this.totalCartPrice,
         cart: this.cart
       })
-        // .then(() => {
-        //   this.notificationClass = 'vue-notification success'
-        //   this.$notify({
-        //     group: 'foo',
-        //     title: 'Success',
-        //     text: 'Order request successful. Check your order reference code for easier tracking'
-        //   })
-        //   let self = this
-        //   setTimeout(function () {
-        //     // self.$router.push({path: '/api/account'})
-        //     // window.location.href = '/api/account'
-        //   }, 3000)
-        // })
-        // .catch(() => {
+      // .then(() => {
+      //   this.notificationClass = 'vue-notification success'
+      //   this.$notify({
+      //     group: 'foo',
+      //     title: 'Success',
+      //     text: 'Order request successful. Check your order reference code for easier tracking'
+      //   })
+      //   let self = this
+      //   setTimeout(function () {
+      //     // self.$router.push({path: '/api/account'})
+      //     // window.location.href = '/api/account'
+      //   }, 3000)
+      // })
+      // .catch(() => {
 
-        // })
+      // })
 
     },
     emptyCart() {

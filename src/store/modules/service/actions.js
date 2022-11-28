@@ -12,6 +12,7 @@ export default {
         try {
             response = await Axios.get('http://127.0.0.1:8000/api/get-services')
             context.commit(SET_SERVICES_MUTATION, response.data.services)
+            console.log(response.data.services[0])
             return response
         } catch (error) {
             console.log(error)

@@ -1,28 +1,28 @@
 import { SET_CATEGORIES_MUTATION } from "../../storeConstants";
 
 export default {
-    cartItem(state, { product, quantity }) {
-        let productInCart = state.cart.find(item => {
-            return item.product.id === product.id
+    cartItem(state, { service, quantity }) {
+        let serviceInCart = state.cart.find(item => {
+            return item.service.id === service.id
         })
-        if (productInCart) {
-            productInCart.quantity++
+        if (serviceInCart) {
+            serviceInCart.quantity++
             return
         }
-        state.cart.push({ product, quantity })
+        state.cart.push({ service, quantity })
     },
 
     clearAllCartItems(state) {
         state.cart = []
     },
 
-    deleteProductInCart(state, product) {
+    deleteServiceInCart(state, service) {
         state.cart = state.cart.filter(item => {
-            return item.product !== product
+            return item.service !== service
         })
     },
 
-    getProductsInCart(state, payload) {
+    getServicesInCart(state, payload) {
         state.cart = payload
     }
 

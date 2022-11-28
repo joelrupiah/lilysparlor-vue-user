@@ -6,13 +6,15 @@
                 <div class="col-md-6 col-lg-4" v-for="(service, index) in services" :key="index">
                     <div class="banner banner-overlay banner-overlay-light">
                         <a href="#">
+                            <!-- <img :src="service.image_one" alt="Banner"> -->
                             <img src="assets/images/demos/demo-4/banners/banner-2.jpg" alt="Banner">
                         </a>
 
                         <div class="banner-content">
                             <h3 class="banner-title"><a href="#"><strong>{{ service.name }}</strong> <br></a></h3>
                             <!-- End .banner-title -->
-                            <a href="#" class="banner-link">Book Now<i class="icon-long-arrow-right"></i></a>
+                            <a href="#" class="banner-link" @click.prevent="addToCart(service)">
+                                Book Now<i class="icon-long-arrow-right"></i></a>
                         </div><!-- End .banner-content -->
                     </div><!-- End .banner -->
                 </div><!-- End .col-md-4 -->
@@ -37,6 +39,14 @@ export default {
       getAllServices() {
           this.getAllServicesList()
       },
+
+      addToCart(service) {
+            // alert(product.name + 'Added to cart')
+            this.$store.dispatch('cart/addToCart', {
+                service,
+                quantity: 1
+            })
+        },
     },
     computed: {
         ...mapGetters('service', {

@@ -89,7 +89,7 @@
                               {{ order.status }}
                             </span>
                           </td>
-                          <td>{{ order.total }}</td>
+                          <td>kshs {{ order.total }}</td>
                           <td>
                             <!-- <router-link :to="`/order-detail/${order.order_id}`" class="btn-remove">
                               <i class="icon-eye"></i>

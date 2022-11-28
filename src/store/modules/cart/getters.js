@@ -9,7 +9,7 @@ export default {
         let total = 0
 
         state.cart.forEach(item => {
-            total += item.product.price * item.quantity
+            total += item.service.price * item.quantity
         })
         return total
     }

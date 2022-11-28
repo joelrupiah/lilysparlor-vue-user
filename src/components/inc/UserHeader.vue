@@ -73,12 +73,12 @@
               <div class="product" v-for="(item, i) in cart" :key="i">
                 <div class="product-cart-details">
                   <h4 class="product-title">
-                    <a href="product.html">{{item.product.name}}</a>
+                    <a href="product.html">{{item.service.name}}</a>
                   </h4>
 
                   <span class="cart-product-info">
                     <span class="cart-product-qty">{{item.quantity}}</span>
-                    x ${{item.product.price}}
+                    x ${{item.service.price}}
                   </span>
                 </div><!-- End .product-cart-details -->
 
@@ -87,7 +87,7 @@
                     <img src="assets/images/products/cart/product-1.jpg" alt="product">
                   </a>
                 </figure>
-                <a href="#" class="btn-remove" title="Remove Product" @click.prevent="removeProductInCart(item.product)">
+                <a href="#" class="btn-remove" title="Remove Service" @click.prevent="removeServiceInCart(item.service)">
                   <i class="icon-close"></i>
                 </a>
               </div><!-- End .product -->
@@ -126,8 +126,8 @@ export default {
     async getStoredCartItems() {
       await this.$store.dispatch('cart/getStoredCartItems')
     },
-    removeProductInCart(product) {
-      this.$store.dispatch('cart/removeProductInCart', product)
+    removeServiceInCart(service) {
+      this.$store.dispatch('cart/removeServiceInCart', service)
     },
     emptyCart() {
       return (this.cart.length < 1)

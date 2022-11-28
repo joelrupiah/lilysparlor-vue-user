@@ -2,11 +2,11 @@ import Api from '../../../requests/Api'
 
 export default {
 
-    async addToCart(context, { product, quantity }) {
+    async addToCart(context, { service, quantity }) {
         let response = ''
         try {
-            response = await Api().post('/add-to-cart', { product, quantity })
-            context.commit('cartItem', { product, quantity })
+            response = await Api().post('/add-to-cart', { service, quantity })
+            context.commit('cartItem', { service, quantity })
             return response
         } catch (error) {
             console.log(error)
@@ -17,18 +17,18 @@ export default {
         let response = ''
         try {
             response = await Api().get('/cart-items')
-            context.commit('getProductsInCart', response.data.carts)
+            context.commit('getServicesInCart', response.data.carts)
             return response
         } catch (error) {
             console.log(error)
         }
     },
 
-    async removeProductInCart(context, product) {
-        context.commit('deleteProductInCart', product)
+    async removeServiceInCart(context, service) {
+        context.commit('deleteServiceInCart', service)
         let response = ''
         try {
-            response = await Api().delete(`/delete-cart-item/${product.id}`)
+            response = await Api().delete(`/delete-cart-item/${service.id}`)
         } catch (error) {
             console.log(error)
         }
