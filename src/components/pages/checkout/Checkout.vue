@@ -227,7 +227,7 @@ export default {
       //   let self = this
       //   setTimeout(function () {
       //     // self.$router.push({path: '/api/account'})
-      //     // window.location.href = '/api/account'
+      //     // window.location.href = '/account'
       //   }, 3000)
       // })
       // .catch(() => {

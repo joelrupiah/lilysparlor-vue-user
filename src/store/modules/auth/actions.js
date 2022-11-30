@@ -2,8 +2,8 @@ import Axios from "axios"
 import { REGISTER_ACTION, REGISTER_AUTH_ACTION, LOGIN_AUTH_ACTION, LOGIN_ACTION, LOGOUT_ACTION, SET_USER_TOKEN_DATA_MUTATION } from "../../storeConstants"
 
 export default {
-    
-    [LOGOUT_ACTION](context) {
+
+    logoutUser(context) {
         context.commit(SET_USER_TOKEN_DATA_MUTATION, {
             email: null,
             token: null,
@@ -11,7 +11,7 @@ export default {
             id: null,
             avatar: null
         })
-        localStorage.removeItem('adminData')
+        localStorage.removeItem('userData')
     },
 
     async [REGISTER_ACTION](context, payload){

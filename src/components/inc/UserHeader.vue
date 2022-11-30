@@ -13,7 +13,9 @@
             <a href="#">Links</a>
             <ul>
               <!-- <li><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li> -->
-              <li><a href="/auth">Sign in / Sign up</a></li>
+              <li v-if="!isAuthenticated"><a href="/auth">Sign in / Sign up</a></li>
+              <li v-if="isAuthenticated"><a href="/account">Account</a></li>
+              <li v-if="isAuthenticated" @click.prevent="logoutUser"><a href="">Logout</a></li>
             </ul>
           </li>
         </ul><!-- End .top-menu -->
@@ -132,6 +134,10 @@ export default {
     emptyCart() {
       return (this.cart.length < 1)
     },
+    logoutUser(){
+      this.$store.dispatch('auth/logoutUser')
+      window.location.href = '/'
+    }
   },
   computed: {
     cartCount() {
@@ -142,6 +148,11 @@ export default {
     },
     totalCartPrice() {
       return this.$store.getters['cart/cartTotalPrice']
+    },
+    isAuthenticated() {
+      // let token = JSON.parse(localStorage.getItem('userData')).token
+      let token = !!window.localStorage.getItem('userData')
+      return token
     }
   },
   async mounted() {
