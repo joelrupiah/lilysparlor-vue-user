@@ -1,5 +1,6 @@
 <template>
     <div id="home-service">
+        <notifications position="top right" class="mt-3" group="shopping_cart" />
         <div class="container for-you">
             <div class="heading heading-flex mb-3">
                 <div class="heading-left">
@@ -12,10 +13,10 @@
 
                     <div class="col-6 col-md-4 col-lg-3" v-for="(service, index) in services" :key="index">
                         <div class="product product-2">
-                            <figure class="product-media">
+                            <figure class="product-media" style="background-color:white">
                                 <a href="/service-detail">
-                                    <img src="assets/images/demos/demo-4/products/product-10.jpg" alt="Service image"
-                                        class="product-image">
+                                    <img :src="service.image_one" alt="Service image"
+                                        style="width:218px;height:218px;object-fit:cover" class="product-image">
                                 </a>
 
                                 <div class="product-action-vertical">
@@ -71,10 +72,28 @@ export default {
 
         addToCart(service) {
             // alert(product.name + 'Added to cart')
-            this.$store.dispatch('cart/addToCart', {
-                service,
-                quantity: 1
-            })
+            if (window.localStorage.getItem('userData')) {
+                this.$store.dispatch('cart/addToCart', {
+                    service,
+                    quantity: 1
+                })
+                    .then(() => {
+                        this.$notify({
+                            group: 'shopping_cart',
+                            type: 'success',
+                            title: 'Product added to cart'
+                        });
+                    })
+            }
+            else {
+                this.$notify({
+                    group: 'shopping_cart',
+                    type: 'error',
+                    title: 'Request failed',
+                    title: 'Register or Login to continue',
+                });
+            }
+
         },
     },
     computed: {

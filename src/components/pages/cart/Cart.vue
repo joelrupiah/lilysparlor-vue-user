@@ -68,7 +68,7 @@
                     <td colspan="6">
                       <p class="text-center text-danger">
                         Cart is empty please
-                        <a href="/shop" class="text-primary">shop</a>
+                        <a href="/" class="text-primary">shop</a>
                         to continue
                       </p>
                     </td>
@@ -77,21 +77,6 @@
               </table><!-- End .table table-wishlist -->
 
               <div class="cart-bottom">
-                <div class="cart-discount">
-                  <form action="#">
-                    <div class="input-group">
-                      <input type="text" class="form-control" required placeholder="coupon code">
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-primary-2" type="submit"><i
-                            class="icon-long-arrow-right"></i></button>
-                      </div><!-- .End .input-group-append -->
-                    </div><!-- End .input-group -->
-                  </form>
-                </div><!-- End .cart-discount -->
-
-                <a href="#" class="btn btn-outline-dark-2" @click.prevent="updateCart()">
-                  <span>UPDATE CART</span><i class="icon-refresh"></i>
-                </a>
                 <a href="#" class="btn btn-outline-dark-2" @click.prevent="clearCartItems()">
                   <span>CLEAR CART</span><i class="icon-close"></i>
                 </a>
@@ -118,7 +103,7 @@
                 <a href="/checkout" class="btn btn-outline-primary-2 btn-order btn-block">PROCEED TO CHECKOUT</a>
               </div><!-- End .summary -->
 
-              <a href="/shop" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i
+              <a href="/" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i
                   class="icon-refresh"></i></a>
             </aside><!-- End .col-lg-3 -->
           </div><!-- End .row -->

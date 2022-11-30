@@ -1,5 +1,6 @@
 <template>
   <div id="checkout">
+    <notifications position="top right" class="mt-3" group="checkout" />
     <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
       <div class="container">
         <h1 class="page-title"><span>Checkout</span></h1>
@@ -20,7 +21,7 @@
           <form action="#">
             <div class="row">
               <div class="col-lg-9">
-                <h2 class="checkout-title">Billing Details</h2><!-- End .checkout-title -->
+                <h2 class="checkout-title">Customer Details</h2><!-- End .checkout-title -->
                 <div class="row">
                   <div class="col-sm-6">
                     <label>First Name *</label>
@@ -88,7 +89,7 @@
                         <td colspan="6">
                           <p class="text-center text-danger">
                             Cart is empty please
-                            <a href="/api/shop" class="text-primary">shop</a>
+                            <a href="/" class="text-primary">shop</a>
                             to continue
                           </p>
                         </td>
@@ -169,11 +170,9 @@
                     </div><!-- End .card -->
                   </div><!-- End .accordion -->
 
-                  <button type="submit" @click.prevent="completeOrder()"
-                    class="btn btn-outline-primary-2 btn-order btn-block">
-                    <span class="btn-text">Place Order</span>
-                    <span class="btn-hover-text">Complete Payment</span>
-                  </button>
+                  <el-button type="success" size="small" :loading="loading" @click.prevent="completeOrder">
+                    {{ loading ? 'Processing.....' : 'Process booking' }}
+                  </el-button>
                 </div><!-- End .summary -->
               </aside><!-- End .col-lg-3 -->
             </div><!-- End .row -->
@@ -190,6 +189,7 @@ export default {
   name: 'Checkout',
   data() {
     return {
+      loading: false,
       notificationClass: null,
       payment: {
         cash_on_delivery: null,
@@ -205,34 +205,61 @@ export default {
         description: '',
         expected_date: '',
         expected_time: '',
-      }
+      },
+      error: {}
     }
   },
   methods: {
     completeOrder() {
       // console.log(this.form)
+      this.loading = true
       Api().post('checkout', {
         form: this.form,
         payment: this.payment,
         total: this.totalCartPrice,
         cart: this.cart
       })
-      // .then(() => {
-      //   this.notificationClass = 'vue-notification success'
-      //   this.$notify({
-      //     group: 'foo',
-      //     title: 'Success',
-      //     text: 'Order request successful. Check your order reference code for easier tracking'
-      //   })
-      //   let self = this
-      //   setTimeout(function () {
-      //     // self.$router.push({path: '/api/account'})
-      //     // window.location.href = '/account'
-      //   }, 3000)
-      // })
-      // .catch(() => {
-
-      // })
+        .then(() => {
+          this.loading = false
+          this.$notify({
+            group: 'checkout',
+            type: 'success',
+            title: 'Order complete, check your account for reference'
+          });
+          setTimeout(function () {
+            window.location.href = '/account'
+          }, 3000)
+        })
+        .catch((error) => {
+          if (error.response.status === 422) {
+            this.errors = error.response.data.errors
+            this.$notify({
+              group: 'checkout',
+              type: 'error',
+              title: 'Request failed',
+              text: 'Please fill the missing field (s) to continue'
+            });
+          }
+          if (error.response.status === 500) {
+            this.errors = error.response.data.errors
+            this.$notify({
+              group: 'checkout',
+              type: 'error',
+              title: 'Request failed',
+              text: 'Please try again later or contact customer support'
+            });
+          }
+          if (error.response.status === 404) {
+            this.errors = error.response.data.errors
+            this.$notify({
+              group: 'checkout',
+              type: 'error',
+              title: 'Request failed',
+              text: 'Please try again later or contact customer support'
+            });
+          }
+          this.loading = false
+        })
 
     },
     emptyCart() {
