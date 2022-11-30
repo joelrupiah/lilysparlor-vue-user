@@ -1,24 +1,53 @@
 <template>
     <div id="home-service">
-        <div class="container">
-            <h2 class="title text-center mb-4">Our Services</h2>
-            <div class="row justify-content-center">
-                <div class="col-md-6 col-lg-4" v-for="(service, index) in services" :key="index">
-                    <div class="banner banner-overlay banner-overlay-light">
-                        <a href="#">
-                            <!-- <img :src="service.image_one" alt="Banner"> -->
-                            <img src="assets/images/demos/demo-4/banners/banner-2.jpg" alt="Banner">
-                        </a>
+        <div class="container for-you">
+            <div class="heading heading-flex mb-3">
+                <div class="heading-left">
+                    <h2 class="title">Our Services</h2><!-- End .title -->
+                </div><!-- End .heading-left -->
+            </div><!-- End .heading -->
 
-                        <div class="banner-content">
-                            <h3 class="banner-title"><a href="#"><strong>{{ service.name }}</strong> <br></a></h3>
-                            <!-- End .banner-title -->
-                            <a href="#" class="banner-link" @click.prevent="addToCart(service)">
-                                Book Now<i class="icon-long-arrow-right"></i></a>
-                        </div><!-- End .banner-content -->
-                    </div><!-- End .banner -->
-                </div><!-- End .col-md-4 -->
-            </div><!-- End .row -->
+            <div class="products">
+                <div class="row justify-content-center">
+
+                    <div class="col-6 col-md-4 col-lg-3" v-for="(service, index) in services" :key="index">
+                        <div class="product product-2">
+                            <figure class="product-media">
+                                <a href="/service-detail">
+                                    <img src="assets/images/demos/demo-4/products/product-10.jpg" alt="Service image"
+                                        class="product-image">
+                                </a>
+
+                                <div class="product-action-vertical">
+                                    <a @click.prevent="addToWishlist(service)" class="btn-product-icon btn-wishlist"
+                                        title="Add to wishlist"></a>
+                                </div><!-- End .product-action -->
+
+                                <div class="product-action">
+                                    <a @click.prevent="addToCart(service)" class="btn-product btn-cart"
+                                        title="Add to cart"><span>add to
+                                            cart</span></a>
+                                    <a href="/service-detail" class="btn-product btn-quickview"
+                                        title="Quick view"><span>quick view</span></a>
+                                </div><!-- End .product-action -->
+                            </figure><!-- End .product-media -->
+
+                            <div class="product-body">
+                                <div class="product-cat">
+                                    <a href="#">{{ service.name }}</a>
+                                </div><!-- End .product-cat -->
+                                <h3 class="product-title"><a href="/service-detail" v-html="service.description"></a>
+                                </h3><!-- End .product-title -->
+                                <div class="product-price">
+                                    <span class="new-price">kshs {{ service.price }}</span>
+                                    <!-- <span class="old-price">Was $349.99</span> -->
+                                </div><!-- End .product-price -->
+                            </div><!-- End .product-body -->
+                        </div><!-- End .product -->
+                    </div><!-- End .col-sm-6 col-md-4 col-lg-3 -->
+
+                </div><!-- End .row -->
+            </div><!-- End .products -->
         </div><!-- End .container -->
     </div>
 </template>
@@ -32,15 +61,15 @@ export default {
         return {}
     },
     methods: {
-      ...mapActions('service', {
-          getAllServicesList: GET_SERVICES_ACTION
-      }),
+        ...mapActions('service', {
+            getAllServicesList: GET_SERVICES_ACTION
+        }),
 
-      getAllServices() {
-          this.getAllServicesList()
-      },
+        getAllServices() {
+            this.getAllServicesList()
+        },
 
-      addToCart(service) {
+        addToCart(service) {
             // alert(product.name + 'Added to cart')
             this.$store.dispatch('cart/addToCart', {
                 service,

@@ -1,5 +1,7 @@
 <template>
     <div id="register-login">
+        <notifications position="top right" class="mt-3" group="register_user" />
+        <notifications position="top right" class="mt-3" group="login_user" />
         <div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17"
             style="background-image: url('assets/images/backgrounds/login-bg.jpg')">
             <div class="container">
@@ -23,6 +25,9 @@
                                         </label>
                                         <input type="email" class="form-control" id="singin-email-2" name="singin-email"
                                             v-model="loginForm.email" required>
+                                        <small class="text-danger text-sm" v-if="errors.email">{{ errors.email[0]
+                                        }}</small>
+
                                     </div><!-- End .form-group -->
 
                                     <div class="form-group">
@@ -30,6 +35,9 @@
                                         </label>
                                         <input type="password" class="form-control" id="singin-password-2"
                                             v-model="loginForm.password" name="singin-password" required>
+                                        <small class="text-danger text-sm" v-if="errors.password">{{ errors.password[0]
+                                        }}</small>
+
                                     </div><!-- End .form-group -->
 
                                     <div class="form-footer">
@@ -53,6 +61,9 @@
                                         <label for="full-name-2">Full Name <span class="text-danger"> *</span> </label>
                                         <input type="text" class="form-control" id="full-name-2" name="full-name"
                                             v-model="registerForm.name" required>
+                                        <small class="text-danger text-sm" v-if="errors.name">{{ errors.name[0]
+                                        }}</small>
+
                                     </div><!-- End .form-group -->
 
                                     <div class="form-group">
@@ -60,6 +71,9 @@
                                         </label>
                                         <input type="email" class="form-control" id="register-email-2"
                                             v-model="registerForm.email" name="register-email" required>
+                                        <small class="text-danger text-sm" v-if="errors.email">{{ errors.email[0]
+                                        }}</small>
+
                                     </div><!-- End .form-group -->
 
                                     <div class="form-group">
@@ -67,6 +81,8 @@
                                         </label>
                                         <input type="password" class="form-control" id="register-password-2"
                                             v-model="registerForm.password" name="register-password" required>
+                                        <small class="text-danger text-sm" v-if="errors.password">{{ errors.password[0]
+                                        }}</small>
                                     </div><!-- End .form-group -->
 
                                     <div class="form-group">
@@ -116,7 +132,7 @@ export default {
                 email: '',
                 password: ''
             },
-            errors: []
+            errors: {}
         }
     },
     methods: {
@@ -138,37 +154,64 @@ export default {
         },
 
         async register() {
-            try {
-                await this.registerUser({
-                    name: this.registerForm.name,
-                    email: this.registerForm.email,
-                    password: this.registerForm.password,
-                    password_confirmation: this.registerForm.password_confirmation
+            this.loading = true
+            await this.registerUser({
+                name: this.registerForm.name,
+                email: this.registerForm.email,
+                password: this.registerForm.password,
+                password_confirmation: this.registerForm.password_confirmation
+            })
+                .then(() => {
+                    // enter notification
+                    this.$notify({
+                        group: 'register_user',
+                        type: 'success',
+                        title: 'Request complete',
+                        text: 'Login or Signin to continue'
+                    });
+                    this.loading = false
                 })
-                    .then(() => {
-                        // enter notification
-                    })
-                    .catch((error) => {
-                        console.log(error)
-                    })
-            } catch (error) {
-                console.log(error)
-            }
+                .catch((error) => {
+                    console.log(error)
+                    if (error.response.status === 422) {
+                        this.errors = error.response.data.errors
+                        this.$notify({
+                            group: 'register_user',
+                            type: 'error',
+                            title: 'Request failed',
+                            text: 'Please fill the missing field (s) to continue'
+                        });
+                    }
+                    if (error.response.status === 500) {
+                        this.errors = error.response.data.errors
+                        this.$notify({
+                            group: 'register_user',
+                            type: 'error',
+                            title: 'Request failed',
+                            text: 'Please contact customer service for help'
+                        });
+                    }
+                    this.loading = false
+                })
             this.$router.push('/auth')
 
         },
 
         async login() {
+            this.loading = true
             try {
                 await this.loginUser({
                     email: this.loginForm.email,
                     password: this.loginForm.password
                 })
+                this.loading = false
+                window.location.href = '/'
             } catch (error) {
                 console.log(error)
+                this.loading = false
             }
             // this.$router.push('/')
-            window.location.href = '/'
+
 
         }
     },
